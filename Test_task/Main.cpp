@@ -42,13 +42,15 @@ void Task1_new()
 		cout << "Îרטבךא ןנט נאבמעו ס פאיכמל" << endl;
 		return;
 	}
-	int i;
+	int i, j = 0;
 	vector<int> obj;
-	while (file >> i)
-		obj.push_back(i);
 	map<int, int> num;
-	for (int i = 0; i < obj.size(); i++)
-		num.emplace(obj[i], i);
+	while (file >> i)
+	{
+		obj.push_back(i);
+		num.emplace(i, j);
+		j++;
+	}
 	for (int i = 0; obj.size(); i++)
 	{
 		int search = 2023 - obj[i];
@@ -77,34 +79,35 @@ void Task2()
 	vector <int> ::iterator it_s = second.begin();
 	showArray(second);
 	vector<int> common;
-	while (it_f != first.end() && it_s != second.end())
+	int fst = 0, scnd = 0;
+	while (fst != first.size() && scnd != second.size())
 	{
-		if (*it_f > *it_s)
+		if (first[fst] > second[scnd])
 		{
-			common.push_back(*it_s);
-			it_s++;
+			common.push_back(second[scnd]);
+			scnd++;
 		}
 		else
 		{
-			common.push_back(*it_f);
-			it_f++;
+			common.push_back(first[fst]);
+			fst++;
 		}
 	}
-	if (it_f == first.end())
+	if (fst == first.size())
 	{
-		while (it_s != second.end()) 
+		while (scnd != second.size())
 		{
-			common.push_back(*it_s);
-			it_s++;
+			common.push_back(second[scnd]);
+			scnd++;
 		}
 	}
-	else if (it_s != second.end())
+	else if (scnd == second.size())
 	{
-		
-		while (it_f != first.end())
+
+		while (fst != first.size())
 		{
-			common.push_back(*it_f);
-			it_f++;
+			common.push_back(first[fst]);
+			fst++;
 		}
 	}
 	showArray(common);
