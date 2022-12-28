@@ -2,10 +2,13 @@
 #include <vector>
 #include <fstream>
 #include<Windows.h>
+#include <map>
+#include <ctime>
 using namespace std;
 
 void Task1()
 {
+	double start = clock(); 
 	ifstream file("Input task1.txt");
 	if (file.fail())
 	{
@@ -23,11 +26,41 @@ void Task1()
 			{
 				cout << obj[i]<<endl << obj[j]<<endl;
 				file.close();
+				double duration = (clock() - start) / (double)CLOCKS_PER_SEC;
+				cout << duration << '\n';
 				return;
 			}
 		}
 }
 
+void Task1_new()
+{
+	double start = clock();
+	ifstream file("Input task1.txt");
+	if (file.fail())
+	{
+		cout << "Ошибка при работе с файлом" << endl;
+		return;
+	}
+	int i;
+	vector<int> obj;
+	while (file >> i)
+		obj.push_back(i);
+	map<int, int> num;
+	for (int i = 0; i < obj.size(); i++)
+		num.emplace(obj[i], i);
+	for (int i = 0; obj.size(); i++)
+	{
+		int search = 2023 - obj[i];
+		if (num.find(search) != num.end())
+		{
+			cout << obj[i] << " " << search << endl;
+			double duration = (clock() - start) / (double)CLOCKS_PER_SEC;
+			cout << duration << '\n';
+			return;
+		}
+	}
+}
 void showArray(vector<int> vec)
 {
 	for (int i = 0; i < vec.size(); i++)
@@ -83,6 +116,7 @@ int main()
 	SetConsoleOutputCP(1251);
 	cout << "Задание 1:" << endl;
 	Task1();
+	Task1_new();
 	cout << "Задание 2:" << endl;
 	Task2();
 }
